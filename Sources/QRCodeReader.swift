@@ -276,54 +276,11 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - parameter fallbackOrientation: The video orientation if the device orientation is FaceUp or FaceDown.
    */
   public class func videoOrientation(deviceOrientation orientation: UIDeviceOrientation, withSupportedOrientations supportedOrientations: UIInterfaceOrientationMask, fallbackOrientation: AVCaptureVideoOrientation? = nil) -> AVCaptureVideoOrientation {
-    let result: AVCaptureVideoOrientation
-
-    switch (orientation, fallbackOrientation) {
-    case (.landscapeLeft, _):
-      result = .landscapeRight
-    case (.landscapeRight, _):
-      result = .landscapeLeft
-    case (.portrait, _):
-      result = .portrait
-    case (.portraitUpsideDown, _):
-      result = .portraitUpsideDown
-    case (_, .some(let orientation)):
-      result = orientation
-    default:
-      result = .portrait
-    }
-
-    if supportedOrientations.contains(orientationMask(videoOrientation: result)) {
-      return result
-    }
-    else if let orientation = fallbackOrientation , supportedOrientations.contains(orientationMask(videoOrientation: orientation)) {
-      return orientation
-    }
-    else if supportedOrientations.contains(.portrait) {
-      return .portrait
-    }
-    else if supportedOrientations.contains(.landscapeLeft) {
-      return .landscapeLeft
-    }
-    else if supportedOrientations.contains(.landscapeRight) {
-      return .landscapeRight
-    }
-    else {
-      return .portraitUpsideDown
-    }
+    return .landscapeRight
   }
 
   class func orientationMask(videoOrientation orientation: AVCaptureVideoOrientation) -> UIInterfaceOrientationMask {
-    switch orientation {
-    case .landscapeLeft:
-      return .landscapeLeft
-    case .landscapeRight:
-      return .landscapeRight
-    case .portrait:
-      return .portrait
-    case .portraitUpsideDown:
-      return .portraitUpsideDown
-    }
+    return .landscapeRight
   }
 
   // MARK: - Checking the Reader Availabilities
