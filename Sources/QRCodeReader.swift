@@ -217,6 +217,14 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
       self.session.stopRunning()
 
+      for output in self.session.outputs {
+        self.session.removeOutput(output)
+      }
+
+      for input in self.session.inputs {
+        self.session.removeInput(input)
+      }
+
       DispatchQueue.main.async {
         self.lifeCycleDelegate?.readerDidStopScanning()
       }
